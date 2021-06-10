@@ -22,6 +22,7 @@
             <x-form-input type="number" name="precio" label="Precio" placeholder="Precio..." /><br>
             <input type="hidden" name="oferta" value="0">
             <x-form-checkbox name="oferta" label="Oferta"/>
+            <x-form-input type="number" name="stock" label="Stock"/>
             <x-form-input type="file" name="foto" />
 
             <x-form-submit>Enviar</x-form-submit>

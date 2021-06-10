@@ -59,6 +59,7 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?><br>
+            <input type="hidden" name="oferta" value="0">
             <?php if (isset($component)) { $__componentOriginala3e19a72c23ab339e42cfeba80451efc30887761 = $component; } ?>
 <?php $component = $__env->getContainer()->make(ProtoneMedia\LaravelFormComponents\Components\FormCheckbox::class, ['name' => 'oferta','label' => 'Oferta']); ?>
 <?php $component->withName('form-checkbox'); ?>
@@ -68,6 +69,18 @@
 <?php if (isset($__componentOriginala3e19a72c23ab339e42cfeba80451efc30887761)): ?>
 <?php $component = $__componentOriginala3e19a72c23ab339e42cfeba80451efc30887761; ?>
 <?php unset($__componentOriginala3e19a72c23ab339e42cfeba80451efc30887761); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+            <?php if (isset($component)) { $__componentOriginalc6dc29918f642c0cf8bf87f6c59d196df1a6e1b4 = $component; } ?>
+<?php $component = $__env->getContainer()->make(ProtoneMedia\LaravelFormComponents\Components\FormInput::class, ['type' => 'number','name' => 'stock','label' => 'Stock']); ?>
+<?php $component->withName('form-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php if (isset($__componentOriginalc6dc29918f642c0cf8bf87f6c59d196df1a6e1b4)): ?>
+<?php $component = $__componentOriginalc6dc29918f642c0cf8bf87f6c59d196df1a6e1b4; ?>
+<?php unset($__componentOriginalc6dc29918f642c0cf8bf87f6c59d196df1a6e1b4); ?>
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
