@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\Producto;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -109,8 +110,22 @@ class CarritoController extends Controller
     public function destroy(Carrito $carrito)
     {
         $carritos = User::find(Auth::user()->id)->carritos;//Sacar todos los carritos del user.
+
         foreach ($carritos as $carrito) {
-           $carrito->delete();
+            // $miCarrito = Carrito::find($carrito->id);
+            $producto = Producto::find($carrito->producto_id);
+
+
+
+            if(($producto->stock)<($carrito->cantidad)){
+                return redirect()->route('inicio')->with('error', "no hay sufienciente stock de: ".$producto->nombre." stock: ". $producto->stock);
+            }else{
+                $stock = $producto->stock;
+                $cantidad = $carrito->cantidad;
+                $producto->stock = $stock-$cantidad;
+                $producto->update();
+                $carrito->delete();
+            }
         }
         return redirect()->route('inicio')->with('mensaje', "Compra finalizada.");
 

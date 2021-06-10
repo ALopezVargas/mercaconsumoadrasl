@@ -38,9 +38,7 @@
                     <th>Oferta</th>
                     <th>Foto</th>
                     <th>Stock</th>
-                    <?php if(Auth::user()!= null && Auth::user()->tipo==1): ?>
-                    <th>Acciones</th>
-                    <?php endif; ?>
+
                 </tr>
             </thead>
             <tbody>

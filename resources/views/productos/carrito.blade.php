@@ -38,10 +38,10 @@
     </table>
     <button type="submit" class="carrito-btn">Actualizar Carrito</button>
     </form>
-    <form method="POST" action="{{route('carrito.borrarUno')}}" enctype="multipart/form-data">
+    <form id="borrarProductoForm" method="POST" action="{{route('carrito.borrarUno')}}" enctype="multipart/form-data">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn__fin">Borrar Carrito</button>
+        <button id="borrarProducto" class="btn__fin">Borrar</button>
     </form>
 
     <div class="precio-total">

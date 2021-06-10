@@ -21,9 +21,7 @@
                     <th>Oferta</th>
                     <th>Foto</th>
                     <th>Stock</th>
-                    @if(Auth::user()!= null && Auth::user()->tipo==1)
-                    <th>Acciones</th>
-                    @endif
+
                 </tr>
             </thead>
             <tbody>
