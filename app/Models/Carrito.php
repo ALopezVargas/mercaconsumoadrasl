@@ -9,9 +9,9 @@ class Carrito extends Model
 {
     use HasFactory;
 
-    protected $fillable=['nombre','foto','categoria_id','precio','cantidad'];
+    // protected $fillable=[nombr]
 
-    public function productosCarrito(){
-        return $this->hasMany(Producto::class);
+    public function producto(){
+        return $this->belongsTo(Producto::class);
     }
 }

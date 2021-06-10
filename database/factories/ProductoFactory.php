@@ -29,7 +29,8 @@ class ProductoFactory extends Factory
             'descripcion'=>ucfirst($this->faker->unique()->text(100)),
             'categoria_id'=>$this->faker->numberBetween($min=1,$max=13),
             'precio'=>mt_rand($precio1, $precio2)/100,
-            'oferta'=>$this->faker->boolean()
+            'oferta'=>$this->faker->boolean(),
+            'stock'=>$this->faker->numberBetween($min=0,$max=20)
         ];
     }
 }

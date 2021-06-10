@@ -23,11 +23,7 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-        <?php if(Auth::user()!= null && Auth::user()->tipo==1): ?>
-        <div class="my-2 p-2">
-        <a href="<?php echo e(route('producto.create')); ?>" class="p-4 mx-7 bg-green-300 font-bold rounded-full hover:bg-green-800">Nuevo Producto</a><!--Creamos un nuevo producto-->
-        </div>
-        <?php endif; ?>
+
         <div class="mt-5 p-2">
             <a href="<?php echo e(route('producto.index')); ?>" class="p-4 mx-7 bg-gray-300 font-bold rounded-full hover:bg-gray-800">Volver</a>
         </div>
@@ -41,7 +37,10 @@
                     <th>Precio</th>
                     <th>Oferta</th>
                     <th>Foto</th>
+                    <th>Stock</th>
+                    <?php if(Auth::user()!= null && Auth::user()->tipo==1): ?>
                     <th>Acciones</th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -60,20 +59,8 @@
                         <td class="p-4"><span class="p-2 mx-2 bg-yellow-300">Si</span></td>
                         <?php endif; ?>
                     <td class="imagenIndex p-4"><img src="<?php echo e(asset($item->foto)); ?>"></td>
-                    <td class="p-4">
-                        <?php if(Auth::user()!= null && Auth::user()->tipo==1): ?>
-                        <form action="<?php echo e(route('producto.destroy',$item)); ?>" method="post">
-                            <?php echo csrf_field(); ?>
-                            <?php echo method_field('DELETE'); ?>
-                            <div class="flex grid-cols-2">
-                                <a class="p-3 mx-1 bg-yellow-300 font-bold rounded hover:bg-yellow-800" href="<?php echo e(route('producto.edit',$item)); ?>">Editar</a>
-                            <button type="submit" class="p-2 bg-red-300 font-bold rounded hover:bg-red-600">
-                                Eliminar
-                            </button>
-                            </div>
-                        </form>
-                        <?php endif; ?>
-                    </td>
+                    <td class="p-4"><?php echo e($item->stock); ?></td>
+
                 </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>

@@ -36,62 +36,55 @@
                     Categorías de nuestro supermercado</h3>
                 <ul class="categories-list">
                     <li class="item">
-                            <a href="" class="btn-category">
-                                <span class="iconoCat platos-preparados"></span>
+                        <a href="" class="btn-category">
                                 <span class="category-name">Platos Preparados</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat al-dia"></span>
+
                                 <span class="category-name">Al Día</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat despensa"></span>
+
                                 <span class="category-name">Despensa</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat mascotas"></span>
+
                                 <span class="category-name">Mascotas</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat bebe"></span>
                                 <span class="category-name">Bebé</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat cuidado-del-hogar"></span>
                                 <span class="category-name">Cuidado del Hogar</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat cuidado-personal"></span>
                                 <span class="category-name">Cuidado Personal</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat bebidas"></span>
                                 <span class="category-name">Bebidas</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat bodega"></span>
                                 <span class="category-name">Bodega</span>
                             </a>
                         </li>
                     <li class="item">
                             <a href="" class="btn-category">
-                                <span class="iconoCat congelados"></span>
                                 <span class="category-name">Congelados</span>
                             </a>
                         </li>
@@ -109,13 +102,13 @@
                         <h3 class="product__title"><?php echo e($item->nombre); ?></h3>
                         <h4 class="product__cat"><?php echo e($item->categoria->nombre); ?></h4>
                         <span class="product__price"><?php echo e($item->precio); ?>€</span>
+                        <span class="product__price">Stock disponible:<?php echo e($item->stock); ?></span>
                     </div>
                     <button class="p-3 mx-4 bg-white-300 font-bold rounded-full hover:bg-green-100">Detalles <i class="product__icon fas fa-cart-plus"></i> </button>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </section>
             <?php endif; ?>
-
             <?php if(auth()->guard()->check()): ?>
             <?php if(Auth::user()->tipo!=1): ?>
             <section class="container-products">
@@ -126,8 +119,10 @@
                         <h3 class="product__title"><?php echo e($item->nombre); ?></h3>
                         <h4 class="product__cat"><?php echo e($item->categoria->nombre); ?></h4>
                         <span class="product__price"><?php echo e($item->precio); ?>€</span>
+                        <span class="product__price">Stock disponible:<?php echo e($item->stock); ?></span>
+
                     </div>
-                    <button class="p-3 mx-4 bg-blue-300 font-bold rounded-full hover:bg-blue-800">>Comprar </button><i class="product__icon fas fa-cart-plus"></i>
+                    <button class="p-3 mx-4 bg-blue-300 font-bold rounded-full hover:bg-blue-800">Detalles <i class="product__icon fas fa-cart-plus"></i></button>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </section>
@@ -148,6 +143,7 @@
                         <th>Oferta</th>
                         <?php if(Auth::user()!= null && Auth::user()->tipo==1): ?><th>Acciones</th><?php endif; ?>
                         <th>Foto</th>
+                        <th>Stock</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -166,6 +162,7 @@
                         <td class="p-4"><span class="p-2 mx-2 bg-yellow-300">Si</span></td>
                         <?php endif; ?>
                         <td class="imagenIndex p-4"><img src="<?php echo e(asset($item->foto)); ?>"></td>
+                        <td class="p-4"><?php echo e($item->stock); ?></td>
                         <td class="p-4">
                             <?php if(Auth::user()!= null && Auth::user()->tipo==1): ?>
                             <form action="<?php echo e(route('producto.destroy',$item)); ?>" method="post" enctype="multipart/form-data">

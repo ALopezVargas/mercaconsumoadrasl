@@ -30,6 +30,7 @@
             </div>
 
             <x-form-input type="number" step=".01" name="precio" label="Precio" />
+            <x-form-input type="number" name="stock" label="Stock"/>
             <input type="hidden" name="oferta" value="0">
             <x-form-checkbox name="oferta" label="Oferta"/>
             <x-form-input type="file" name="foto" />

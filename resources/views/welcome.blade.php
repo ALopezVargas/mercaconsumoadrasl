@@ -10,10 +10,16 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+
+    <link rel="stylesheet" href="{{ asset('css/carritocompra.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/estilos.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{asset('storage/img/logoP.jpg')}}">
+
 </head>
 
 <body>
@@ -29,8 +35,8 @@
                         <li class="menu__item"><a href="{{route('inicio')}}" class="menu__link">INICIO</a></li>
                         <li class="menu__item"><a href="{{route('ofertas')}}" class="menu__link">OFERTAS</a></li>
                         <li class="menu__item"><a href="{{route('producto.index')}}" class="menu__link">PRODUCTOS</a></li>
-                        <li class="menu__item"><a href="" class="menu__link">SOBRE NOSOTROS</a></li>
-                        <li class="menu__item"><a href="" class="menu__link">CONTACTO</a></li>
+                        <li class="menu__item"><a href="{{route('sobreNosotros')}}" class="menu__link">SOBRE NOSOTROS</a></li>
+                        <li class="menu__item"><a href="{{route('contacto')}}" class="menu__link">CONTACTO</a></li>
                     </ul>
                 </nav>
             </div>
@@ -39,19 +45,18 @@
                 <p class="main-header__txt"> <i class="fas fa-phone"></i> Llama 1234567890</p>
             </div>
             <div class="main-header__container">
-                    @if (Route::has('login'))
-                        <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="main-header__link">{{Auth::user()->name}}</a>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-
-                                    <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
-                                        {{ __('Cerrar Sesión') }}
-                                    </x-dropdown-link>
-                                </form>
+                @if (Route::has('login'))
+                    <div class="main-header__link" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                        @auth
+                            <a href="{{ url('/dashboard') }}">{{Auth::user()->name}}</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                    {{ __('Cerrar Sesión') }}
+                                </x-dropdown-link>
+                            </form>
                             @else
                                 <a href="{{ route('login') }}" class="main-header__link">Iniciar Sesión <i class="fas fa-user"></i></a>
 
@@ -59,10 +64,10 @@
                                     <a href="{{ route('register') }}" class="main-header__link">Registrarse</a>
                                 @endif
                             @endauth
+                            <a href="{{route('carrito.index')}}" class="main-header__btn">Carrito <i class="fas fa-shopping-cart"></i></a>
+
                         </div>
                     @endif
-                <a href="" class="main-header__btn">Carrito <i class="fas fa-shopping-cart"></i></a>
-
                 <div>
                     <div class="mx-auto">
                         <div class="">
@@ -90,6 +95,7 @@
             </div>
         </div>
     </header>
+    <x-mensaje-alerta></x-mensaje-alerta>
     <div class="container-slider">
         <div class="slider" id="slider">
             <div class="slider__section">
@@ -130,11 +136,27 @@
         <div class="slider__btn slider__btn--left" id="btn-left">&#60;</div>
         </div>
     </div>
-    <main class="main">
     <div class="container">
+        <h2 class="main-title"> OFERTAS DEL DÍA:</h2>
+        <section class="container-products">
+            @foreach($productos as $item)
+            <div class="productCat" id="{{$item->id}}">
+                <img src="{{asset($item->foto)}}" alt="" class="product__img">
+                <div class="product__description">
+                    <h3 class="product__title">{{$item->nombre}}</h3>
+                    <h4 class="product__cat">{{$item->categoria->nombre}}</h4>
+                    <span class="product__price">{{$item->precio}}€</span>
+                    <span class="product__price">Stock disponible:{{$item->stock}}</span>
+                </div>
+                <button class="p-3 mx-4 bg-white-300 font-bold rounded-full hover:bg-green-100">Detalles <i class="product__icon fas fa-cart-plus"></i> </button>
+            </div>
+            @endforeach
+        </section>
+        {{ $productos->links() }}
+    <main class="main">
 
         <section class="container__testimonials">
-            <h2 class="section__title">Comentarios</h2>
+            <h2 class="section__title">Comentarios Destacados</h2>
             <h3 class="testimonial__title">EjemploComentario</h3>
             <p class="testimonial__txt">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                 Obcaecati dolor atque libero officiis a corporis quae earum adipisci voluptatem dolorum
@@ -157,19 +179,19 @@
                 <i class="fas fa-hand-paper"></i>
                 <h2 class="tip__title">Recógelo en la tienda</h2>
                 <p class="tip__txt">Podrás recoger todos los productos y pagar en el establecimiento.</p>
-                <a href="" class="btn-shop">CATÁLOGO</a>
+                <a href="{{route('producto.index')}}" class="btn-shop">CATÁLOGO</a>
             </div>
             <div class="tip">
                 <i class="fas fa-rocket"></i>
                 <h2 class="tip__title">Rápido y eficaz</h2>
                 <p class="tip__txt">Tan solo a unos clics de distancia de tu compra, también enviamos a domicilio.</p>
-                <a href="" class="btn-shop">CATÁLOGO</a>
+                <a href="{{route('producto.index')}}" class="btn-shop">CATÁLOGO</a>
             </div>
             <div class="tip">
                 <i class="fas fa-cog"></i>
                 <h2 class="tip__title">Sencillo e intuitivo</h2>
                 <p class="tip__txt">Interfaz simple para que cualquier persona de cualquier edad pueda realizar su compra.</p>
-                <a href="" class="btn-shop">CATÁLOGO</a>
+                <a href="{{route('producto.index')}}" class="btn-shop">CATÁLOGO</a>
             </div>
         </section>
     </div>
@@ -189,20 +211,25 @@
 </div>
 <div class="footer__section">
     <h2 class="footer__title">Enlaces Rápidos</h2>
-    <a href="" class="footer__link">Inicio</a>
-    <a href="" class="footer__link">Sobre Nosotros</a>
-    <a href="" class="footer__link">Error</a>
-    <a href="" class="footer__link">Catálogo</a>
-    <a href="" class="footer__link">Contacto</a>
+    <a href="{{route('inicio')}}" class="footer__link">Inicio</a>
+    <a href="{{route('ofertas')}}" class="footer__link">Ofertas</a>
+    <a href="{{route('producto.index')}}" class="footer__link">Productos</a>
+    <a href="{{route('sobreNosotros')}}" class="footer__link">Sobre Nosotros</a>
+    <a href="{{route('contacto')}}"  class="footer__link">Contacto</a>
 </div>
 <div class="footer__section">
    <h2 class="footer__title">Subscríbete a las ofertas</h2>
    <p class="footer__txt">Recibe las últimas novedades al subscribirte a nuestro boletín bisemanal.</p>
-   <input type="email" class="footer__input" placeholder="Introduce tu e-mail aquí.">
-</div>
+   <form method="POST" action="{{route('contacto.submit')}}" enctype="multipart/form-data">
+    @csrf
+    <input type="email" class="footer__input" placeholder="Introduce tu e-mail aquí.">
+   </form></div>
 <p class="copy">© 2021 Antonio López. Todos los derechos reservados. | Diseñado por Antonio López</p>
 </footer>
+
+    <script src="{{asset('js/detalleProducto.js')}}"></script>
     <script src="{{asset('js/galeria.js')}}"></script>
     <script src="{{asset('js/menu.js')}}"></script>
+
 </body>
 </html>

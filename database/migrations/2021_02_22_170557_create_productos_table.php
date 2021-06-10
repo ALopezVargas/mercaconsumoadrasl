@@ -20,6 +20,7 @@ class CreateProductosTable extends Migration
             $table->text('foto')->default('storage/img/default.jpg');
             $table->decimal('precio')->default("1");
             $table->boolean('oferta')->default(false);
+            $table->integer('stock')->default(1);
 
             $table->foreignId('categoria_id');
             $table->foreign('categoria_id')

@@ -15,15 +15,19 @@ class CreateCarritosTable extends Migration
     {
         Schema::create('carritos', function (Blueprint $table) {
             $table->id();
-            $table->nombre();
-            $table->precio();
-            $table->integer('product_id');
             $table->integer('cantidad');
+
+            $table->foreignId('producto_id')
+            ->constrained()
+            ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreignId('user_id')
+            ->constrained()
+            ->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

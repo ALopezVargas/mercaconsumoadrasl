@@ -9,11 +9,14 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $fillable=['nombre','descripcion','foto','categoria_id','precio','oferta'];
+    protected $fillable=['nombre','descripcion','foto','categoria_id','precio','oferta','stock'];
 
     public function categoria(){
         return $this->belongsTo(Categoria::class);
         //Define la relación de muchos a 1 (N:1)-> (1:1). De tal manera que LOS productos pertenecen a 1 categoría.
         //Productos -> pertenecen -> a una Categoria
+    }
+    public function carritos(){
+        return $this->hasMany(Carrito::class);
     }
 }

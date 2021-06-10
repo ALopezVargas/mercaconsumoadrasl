@@ -6,11 +6,7 @@
     </x-slot>
     <div class="container mx-auto p-2 w-4/5 mb-4">
         <x-mensaje-alerta/>
-        @if(Auth::user()!= null && Auth::user()->tipo==1)
-        <div class="my-2 p-2">
-        <a href="{{route('producto.create')}}" class="p-4 mx-7 bg-green-300 font-bold rounded-full hover:bg-green-800">Nuevo Producto</a><!--Creamos un nuevo producto-->
-        </div>
-        @endif
+
         <div class="mt-5 p-2">
             <a href="{{route('producto.index')}}" class="p-4 mx-7 bg-gray-300 font-bold rounded-full hover:bg-gray-800">Volver</a>
         </div>
@@ -24,7 +20,10 @@
                     <th>Precio</th>
                     <th>Oferta</th>
                     <th>Foto</th>
+                    <th>Stock</th>
+                    @if(Auth::user()!= null && Auth::user()->tipo==1)
                     <th>Acciones</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -43,20 +42,8 @@
                         <td class="p-4"><span class="p-2 mx-2 bg-yellow-300">Si</span></td>
                         @endif
                     <td class="imagenIndex p-4"><img src="{{asset($item->foto)}}"></td>
-                    <td class="p-4">
-                        @if(Auth::user()!= null && Auth::user()->tipo==1)
-                        <form action="{{route('producto.destroy',$item)}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <div class="flex grid-cols-2">
-                                <a class="p-3 mx-1 bg-yellow-300 font-bold rounded hover:bg-yellow-800" href="{{route('producto.edit',$item)}}">Editar</a>
-                            <button type="submit" class="p-2 bg-red-300 font-bold rounded hover:bg-red-600">
-                                Eliminar
-                            </button>
-                            </div>
-                        </form>
-                        @endif
-                    </td>
+                    <td class="p-4">{{$item->stock}}</td>
+
                 </tr>
             @endforeach
             </tbody>

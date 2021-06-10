@@ -13,9 +13,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 
     <!--Estilos-->
+    <link rel="stylesheet" href="{{ asset('css/carritocompra.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/estilos.css') }}">
@@ -28,7 +29,7 @@
 <body>
     @if(Auth::user()!= null && Auth::user()->tipo==1)
                 @include('layouts.navigation')
-                @endif
+    @endif
     <header class="main-header">
         <div class="container container--flex">
             <div class="main-header__container">
@@ -39,8 +40,8 @@
                         <li class="menu__item"><a href="{{route('inicio')}}" class="menu__link">INICIO</a></li>
                         <li class="menu__item"><a href="{{route('ofertas')}}" class="menu__link">OFERTAS</a></li>
                         <li class="menu__item"><a href="{{route('producto.index')}}" class="menu__link">PRODUCTOS</a></li>
-                        <li class="menu__item"><a href="" class="menu__link">SOBRE NOSOTROS</a></li>
-                        <li class="menu__item"><a href="" class="menu__link">CONTACTO</a></li>
+                        <li class="menu__item"><a href="{{route('sobreNosotros')}}" class="menu__link">SOBRE NOSOTROS</a></li>
+                        <li class="menu__item"><a href="{{route('contacto')}}" class="menu__link">CONTACTO</a></li>
                     </ul>
                 </nav>
             </div>
@@ -55,7 +56,6 @@
                                 <a href="{{ url('/dashboard') }}">{{Auth::user()->name}}</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-
                                     <x-dropdown-link :href="route('logout')"
                                             onclick="event.preventDefault();
                                                         this.closest('form').submit();">
@@ -70,7 +70,8 @@
                             @endauth
                         </div>
                     @endif
-                <a href="" class="main-header__btn">Carrito <i class="fas fa-shopping-cart"></i></a>
+
+                <a href="{{route('carrito.index')}}" class="main-header__btn">Carrito <i class="fas fa-shopping-cart"></i></a>
 
                 <div>
                     <div class="mx-auto">
@@ -83,7 +84,7 @@
                                         </button>
                                     </span>
                                     <span class="input-group-btn ml-11">
-                                        <button class="btn btn-danger" type="button" title="Refrescar">Refrescar
+                                        <button class="btn btn-danger" type="button" title="Refrescar">
                                             <span class="fas fa-sync-alt"></span>
                                         </button>
                                     </span>
@@ -118,16 +119,20 @@
 </div>
 <div class="footer__section">
     <h2 class="footer__title">Enlaces Rápidos</h2>
-    <a href="" class="footer__link">Inicio</a>
-    <a href="" class="footer__link">Sobre Nosotros</a>
-    <a href="" class="footer__link">Error</a>
-    <a href="" class="footer__link">Catálogo</a>
-    <a href="" class="footer__link">Contacto</a>
+    <a href="{{route('inicio')}}" class="footer__link">Inicio</a>
+    <a href="{{route('ofertas')}}" class="footer__link">Ofertas</a>
+    <a href="{{route('producto.index')}}" class="footer__link">Productos</a>
+    <a href="{{route('sobreNosotros')}}" class="footer__link">Sobre Nosotros</a>
+    <a href="{{route('contacto')}}"  class="footer__link">Contacto</a>
 </div>
 <div class="footer__section">
    <h2 class="footer__title">Subscríbete a las ofertas</h2>
    <p class="footer__txt">Recibe las últimas novedades al subscribirte a nuestro boletín bisemanal.</p>
-   <input type="email" class="footer__input" placeholder="Introduce tu e-mail aquí.">
+
+   <form method="POST" action="{{route('contacto.submit')}}" enctype="multipart/form-data">
+    @csrf
+    <input type="email" class="footer__input" placeholder="Introduce tu e-mail aquí.">
+   </form>
 </div>
 <p class="copy">© 2021 Antonio López. Todos los derechos reservados. | Diseñado por Antonio López</p>
 </footer>
