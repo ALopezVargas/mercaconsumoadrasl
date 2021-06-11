@@ -210,44 +210,6 @@ class ProductoController extends Controller
     }
     public function aniadirCarrito(Request $request)
     {
-        /*
-        -Actualizar el carrito si ya está creado
-        -Crear carrito.
-        -Especificar que si no hay stock no se puede comprar.
-        Cuando tu llamas al metodo de la rel , si tu llamas al metodo con () , te
-        devuelve un array ,  una colección relacionada con el metodo
-        hasmany/belongsto o lo que sea
-        si lo pongo sin parentesis devuelve el objeto, no la relación.
-
-        En las relaciones, si tienes un campo de la base de datos que se llama igual
-        que el metodo, peta, porque como tu estas llamando al mismo nombre del objeto
-        y uno es una variable y el otro una funcion, laravel se lia.
-
-    Tabla pivot: relaciona 2 cosas, el carrito tiene varios productos del mismo user que
-    son varias filas.
-    Tabla aparte sin modelo ni nda, que solo tiene migracion, funcion attach , asignamos
-    los id's , la tabla tendria producto_id y carrito_id .
-    -> Tienes una tabla que relaciona los productos con los carritos, el resultado
-    es que tengo todos los productos que quiera en los carritos que yo quiera.
-    campos pivot: id / producto_id y carrito_id
-
-    cada fila tiene su propio id , la relación la sacas de producto_id y carrito_id
-
-    tutoriales pivot table
-        */
-        // if($request->Method('post')){
-        //     $datos= $request->all();
-        //     // echo "<pre>"; print_r($datos); die;
-
-        //     //Ver si hay suficiente stock
-        //     $getProductoStock = Producto::where(['producto_id'=>$datos['producto_id']])->first()->toArray();
-
-        //     if($getProductoStock['stock']<$datos['cantidad']){
-        //         return redirect()->back()->with('error', "La cantidad no está disponible..");
-        //     }
-
-        // }
-
 
         try {
             if(Auth::user()){
@@ -270,7 +232,6 @@ class ProductoController extends Controller
 
     public function ofertas(Request $request)
     {
-
         $productos = Producto::where([
             ['nombre', '!=', Null],
             [function ($query) use ($request) {

@@ -118,7 +118,8 @@ class CarritoController extends Controller
 
 
             if(($producto->stock)<($carrito->cantidad)){
-                return redirect()->route('inicio')->with('error', "no hay sufienciente stock de: ".$producto->nombre." stock: ". $producto->stock);
+                return redirect()->route('inicio')->with('error', "no hay sufienciente stock de: "
+                .$producto->nombre." stock: ". $producto->stock);
             }else{
                 $stock = $producto->stock;
                 $cantidad = $carrito->cantidad;
